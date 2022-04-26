@@ -472,26 +472,26 @@ div.rendered_html tbody tr:hover {
 <p><span class="math notranslate nohighlight">\(\alpha\)</span> updaters are a quick way to create custom animations. They are used when you need to perform a very specific animation a few times. In case you need to apply that animation many times, it is best to create a custom animation, we will see this in the next chapter.</p>
 <p>The <span class="math notranslate nohighlight">\(\alpha\)</span> parameter basically represents the <code class="docutils literal notranslate"><span class="pre">run_time</span></code> progress of a <code class="docutils literal notranslate"><span class="pre">rate_function</span></code>.</p>
 <p>If you have an animation like this:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Scene</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span><span class="k">Animation</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span><span class="bp">run_time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span><span class="p">))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Scene</span><span class="o">.</span><span class="n">play</span><span class="p">(</span><span class="n">Animation</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span><span class="n">run_time</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>So <span class="math notranslate nohighlight">\(\alpha\)</span> at 20% is 1 second, <span class="math notranslate nohighlight">\(\alpha\)</span> at 50% is 2.5 seconds, and <span class="math notranslate nohighlight">\(\alpha\)</span> at 100% is 5 seconds.</p>
-<p><img alt="title" src="_images/Poster1.png"/></p>
+<img alt="title" src="_images/Poster1.png"/>
 <p>That’s what the <span class="math notranslate nohighlight">\(\alpha\)</span> parameter means in animations.</p>
 <p>To define an <span class="math notranslate nohighlight">\(\alpha\)</span> updater you have to obey the following format:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_alpha_updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span> <span class="c1"># mob, vmob, grp, vgr. etc</span>
-    <span class="bp">color</span> <span class="o">=</span> <span class="fm">interpolate_color</span><span class="p">(</span><span class="mi">RED</span><span class="p">,</span><span class="mi">BLUE</span><span class="p">,</span><span class="bp">alpha</span><span class="p">)</span>
-    <span class="n">mob</span><span class="o">.</span><span class="fm">set_color</span><span class="p">(</span><span class="bp">color</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">my_alpha_updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span> <span class="c1"># mob, vmob, grp, vgr. etc</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">interpolate_color</span><span class="p">(</span><span class="n">RED</span><span class="p">,</span><span class="n">BLUE</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">mob</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
 </pre></div>
 </div>
 <p><span class="math notranslate nohighlight">\(\alpha\)</span> updaters are functions that receive as parameters a single Mobject, followed by the alpha parameter. It is mandatory that the second parameter be called alpha, so that Manim interprets it correctly.</p>
 <p>In the code above we are animating the color change from <code class="docutils literal notranslate"><span class="pre">RED</span></code> to <code class="docutils literal notranslate"><span class="pre">BLUE</span></code>.</p>
 <p>At start, <span class="math notranslate nohighlight">\(\alpha=0\)</span>, so <code class="docutils literal notranslate"><span class="pre">mob</span></code> is going to be <code class="docutils literal notranslate"><span class="pre">RED</span></code>, if we’re using a <code class="docutils literal notranslate"><span class="pre">rate_func</span></code> like linear or smooth, when <span class="math notranslate nohighlight">\(\alpha=0.5\)</span> then the color will be purple. At the end <span class="math notranslate nohighlight">\(\alpha=1\)</span> and (if we’re using a rate_func like linear or smooth) the color will be <code class="docutils literal notranslate"><span class="pre">BLUE</span></code>.</p>
 <p>The way to use an <span class="math notranslate nohighlight">\(\alpha\)</span> updater is as follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
 
-<span class="n">Scene</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-    <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">my_alpha_updater</span><span class="p">,</span> <span class="bp">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span><span class="p">)</span>
+<span class="n">Scene</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+    <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">my_alpha_updater</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -503,16 +503,16 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">(</span><span class="bp">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="fm">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">my_alpha_updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-            <span class="bp">color</span> <span class="o">=</span> <span class="fm">interpolate_color</span><span class="p">(</span><span class="mi">RED</span><span class="p">,</span><span class="mi">BLUE</span><span class="p">,</span><span class="bp">alpha</span><span class="p">)</span>
-            <span class="n">mob</span><span class="o">.</span><span class="fm">set_color</span><span class="p">(</span><span class="bp">color</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">my_alpha_updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">interpolate_color</span><span class="p">(</span><span class="n">RED</span><span class="p">,</span><span class="n">BLUE</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+            <span class="n">mob</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">my_alpha_updater</span><span class="p">,</span> <span class="bp">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">my_alpha_updater</span><span class="p">,</span> <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
@@ -536,21 +536,21 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">(</span><span class="bp">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="fm">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 
         <span class="k">def</span> <span class="nf">anim_interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
-            <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-                <span class="bp">color</span> <span class="o">=</span> <span class="fm">interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="bp">alpha</span><span class="p">)</span>
-                <span class="n">mob</span><span class="o">.</span><span class="fm">set_color</span><span class="p">(</span><span class="bp">color</span><span class="p">)</span>
+            <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+                <span class="n">mob</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">updater</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span>
-                <span class="n">square</span><span class="p">,</span> <span class="n">anim_interpolate_color</span><span class="p">(</span><span class="mi">YELLOW</span><span class="p">,</span><span class="mi">TEAL</span><span class="p">),</span>
-                <span class="bp">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span>
+                <span class="n">square</span><span class="p">,</span> <span class="n">anim_interpolate_color</span><span class="p">(</span><span class="n">YELLOW</span><span class="p">,</span><span class="n">TEAL</span><span class="p">),</span>
+                <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
@@ -570,13 +570,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">anim_interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-        <span class="bp">color</span> <span class="o">=</span> <span class="fm">interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="bp">alpha</span><span class="p">)</span>
-        <span class="n">mob</span><span class="o">.</span><span class="fm">set_color</span><span class="p">(</span><span class="bp">color</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+        <span class="n">mob</span><span class="o">.</span><span class="n">set_color</span><span class="p">(</span><span class="n">color</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">updater</span>
 
-<span class="k">def</span> <span class="fm">InterpolateColor</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">InterpolateColor</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span>
                 <span class="n">mob</span><span class="p">,</span> <span class="n">anim_interpolate_color</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span><span class="n">c2</span><span class="p">),</span>
                 <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span>
@@ -589,11 +589,11 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">(</span><span class="bp">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="fm">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="fm">InterpolateColor</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="mi">PURPLE</span><span class="p">,</span><span class="mi">ORANGE</span><span class="p">,</span><span class="bp">rate_func</span><span class="o">=</span><span class="kc">there_and_back</span><span class="p">)</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">(</span><span class="n">fill_opacity</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">scale</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">InterpolateColor</span><span class="p">(</span><span class="n">square</span><span class="p">,</span><span class="n">PURPLE</span><span class="p">,</span><span class="n">ORANGE</span><span class="p">,</span><span class="n">rate_func</span><span class="o">=</span><span class="n">there_and_back</span><span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
@@ -619,19 +619,19 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">()</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-            <span class="n">angle</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="mi">DEGREES</span> <span class="o">*</span> <span class="bp">alpha</span>
-            <span class="n">mob</span><span class="o">.</span><span class="fm">rotate</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+            <span class="n">angle</span> <span class="o">=</span> <span class="mi">40</span> <span class="o">*</span> <span class="n">DEGREES</span> <span class="o">*</span> <span class="n">alpha</span>
+            <span class="n">mob</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="n">angle</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span>
                 <span class="n">square</span><span class="p">,</span> <span class="n">updater</span><span class="p">,</span>
-                <span class="bp">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span>
+                <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
@@ -662,20 +662,20 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">()</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
         <span class="n">square</span><span class="o">.</span><span class="n">save_state</span><span class="p">()</span>
 
-        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-            <span class="n">mob</span><span class="o">.</span><span class="fm">restore</span><span class="p">()</span>
-            <span class="n">mob</span><span class="o">.</span><span class="fm">rotate</span><span class="p">(</span><span class="mi">40</span> <span class="o">*</span> <span class="mi">DEGREES</span> <span class="o">*</span> <span class="bp">alpha</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+            <span class="n">mob</span><span class="o">.</span><span class="n">restore</span><span class="p">()</span>
+            <span class="n">mob</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span><span class="mi">40</span> <span class="o">*</span> <span class="n">DEGREES</span> <span class="o">*</span> <span class="n">alpha</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span>
                 <span class="n">square</span><span class="p">,</span> <span class="n">updater</span><span class="p">,</span>
-                <span class="bp">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span>
+                <span class="n">run_time</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
@@ -696,22 +696,22 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Example</span><span class="p">(</span><span class="n">Scene</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">construct</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">add</span><span class="p">(</span><span class="n">NumberPlane</span><span class="p">())</span>
-        <span class="n">square</span> <span class="o">=</span> <span class="k">Square</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">NumberPlane</span><span class="p">())</span>
+        <span class="n">square</span> <span class="o">=</span> <span class="n">Square</span><span class="p">()</span>
         <span class="n">initial_width</span> <span class="o">=</span> <span class="n">square</span><span class="o">.</span><span class="n">width</span>
         <span class="n">end_width</span>     <span class="o">=</span> <span class="mi">6</span>
 
-        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="bp">alpha</span><span class="p">):</span>
-            <span class="n">new_width</span> <span class="o">=</span> <span class="fm">interpolate</span><span class="p">(</span><span class="n">initial_width</span><span class="p">,</span><span class="n">end_width</span><span class="p">,</span><span class="bp">alpha</span><span class="p">)</span>
-            <span class="n">mob</span><span class="o">.</span><span class="fm">set</span><span class="p">(</span><span class="bp">width</span><span class="o">=</span><span class="n">new_width</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">updater</span><span class="p">(</span><span class="n">mob</span><span class="p">,</span> <span class="n">alpha</span><span class="p">):</span>
+            <span class="n">new_width</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">initial_width</span><span class="p">,</span><span class="n">end_width</span><span class="p">,</span><span class="n">alpha</span><span class="p">)</span>
+            <span class="n">mob</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="n">new_width</span><span class="p">)</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="fm">play</span><span class="p">(</span>
-            <span class="k">UpdateFromAlphaFunc</span><span class="p">(</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">play</span><span class="p">(</span>
+            <span class="n">UpdateFromAlphaFunc</span><span class="p">(</span>
                 <span class="n">square</span><span class="p">,</span> <span class="n">updater</span><span class="p">,</span>
-                <span class="bp">run_time</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="bp">rate_func</span><span class="o">=</span><span class="kc">smooth</span>
+                <span class="n">run_time</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="n">rate_func</span><span class="o">=</span><span class="n">smooth</span>
             <span class="p">)</span>
         <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="fm">wait</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 <span class="o">%</span><span class="k">manim</span> $_RV
 </pre></div>
 </div>
