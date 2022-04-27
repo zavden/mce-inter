@@ -88,7 +88,9 @@ html_theme = 'furo'
 #html_favicon = '_static/flyingframes_favicon.ico'
 
 
-html_css_files = ["custom.css"]
+html_css_files = ["css/custom.css"]
+
+html_js_files = ['js/custom.js']
 
 pygments_dark_style = "monokai_colors.ManimMonokaiStyle"
 
@@ -101,4 +103,4 @@ if not os.path.exists('media/videos/480p30'):
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ['_static', 'media/images', 'media/videos/480p30']
+html_static_path = ['_static']
