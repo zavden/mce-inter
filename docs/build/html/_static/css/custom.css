@@ -1,7 +1,3 @@
-.math {
-    font-size: 2em
-}
-
 @media (prefers-color-scheme: light) {
     span.nc {
         text-decoration: none !important;
@@ -73,6 +69,14 @@ p {
 
 div > .MathJax {
     font-size: 2em !important;
+}
+
+span > .MathJax {
+    color: rgb(255, 237, 132) !important;
+}
+
+span.pre {
+    color: skyblue;
 }
 
 :root {
