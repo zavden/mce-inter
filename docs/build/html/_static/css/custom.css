@@ -79,6 +79,10 @@ span.pre {
     color: skyblue;
 }
 
+summary {
+    cursor: pointer;
+}
+
 :root {
     --admonition-title-font-size: 1rem;
     --color-admonition-title: #000000;
