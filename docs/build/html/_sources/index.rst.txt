@@ -37,4 +37,5 @@ Content
     CHP_9
     CHP_10
     CHP_11
+    CHP_12
 
