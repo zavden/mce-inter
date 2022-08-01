@@ -31,10 +31,3 @@ Content
     CHP_3
     CHP_4
     CHP_5
-    CHP_6
-    CHP_7
-    CHP_8
-    CHP_9
-    CHP_10
-    CHP_11
-    CHP_12
